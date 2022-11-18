@@ -1,0 +1,107 @@
+using System;
+
+namespace Encriptar
+{
+    static class ArrayExtensions
+    {
+        public static int IndexOf<T>(this T[] array, T value)
+        {
+            return Array.IndexOf(array, value);
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            async static void Encriptado()
+            {
+                char[] alfabeto = new char[26];
+                char letra;
+                int posicion = 0;
+                for (int i = 0; i < alfabeto.Length; i++)
+                {
+                    letra = Convert.ToChar(i + 65);
+                    alfabeto[i] = letra;
+                }
+                Console.WriteLine("Coloca una palabra: ");
+                string texto = Console.ReadLine();
+                texto = texto.ToUpper();
+                for (int i = 0; i < texto.Length; i++)
+                {
+                    for (int j = 0; j < alfabeto.Length; j++)
+                    {
+                        if (texto[i] == alfabeto[j])
+                        {
+                            posicion = j + 1;
+                            break;
+                        }
+                    }
+                    int[] a = new int[] { 1, 3, 5, 7, 9 };
+                    int resultado = posicion * a[i % 5];
+                    int[] b = new int[5];
+                    b[i % 5] = resultado;
+                    Console.Write(b[i % 5] + " ");
+
+                }
+            }
+
+            int opcion = 0;
+            while (opcion != 3)
+            {
+                Console.WriteLine("\n1.Encriptar");
+                Console.WriteLine("2.Desencriptar");
+                Console.WriteLine("Ingrese una opcion");
+                try
+                {
+                    opcion = Convert.ToInt32(Console.ReadLine());
+                    switch (opcion)
+                    {
+                        case 1:
+                            Encriptado();
+                            break;
+                        case 2:
+                            Desencriptado();
+                            break;
+                        default:
+                            Console.WriteLine("Opcion no valida");
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Opcion no valida");
+                }
+            }
+            Console.ReadKey();
+
+            async static void Desencriptado()
+            {
+                Console.WriteLine("Ingresa numeros que tiene la clave a desencriptar(No. que tiene la palabra encriptada ");
+                int cantidad = 0;
+                try
+                {
+                    cantidad = Convert.ToInt32(Console.ReadLine());
+                    int[] numeros = new int[cantidad];
+                    Console.WriteLine("Coloca los numeros: ");
+                    for (int i = 0; i < numeros.Length; i++)
+                    {
+                        numeros[i] = Convert.ToInt32(Console.ReadLine());
+                    }
+
+                    int[] a = new int[] { 1, 3, 5, 7, 9 };
+                    int posicion = 0;
+                    for (int i = 0; i < numeros.Length; i++)
+                    {
+                        posicion = numeros[i] / a[i % 5];
+                        Console.Write(Convert.ToChar(posicion + 64));
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Cantidad no valida");
+                }
+            }
+        }
+    }
+}
